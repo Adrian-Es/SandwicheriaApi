@@ -13,6 +13,4 @@ public interface IDetalleSangucheService {
 	DetalleSangucheModel findById(DetalleSangucheKey id);
 	
 	List<DetalleSangucheModel> FindAll();
-	
-	void deleteById(Integer id);
 }

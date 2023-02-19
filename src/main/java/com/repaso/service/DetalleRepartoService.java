@@ -40,11 +40,5 @@ public class DetalleRepartoService implements IDetalleRepartoService{
 		return iDetalleRepartoRepository.findAll();
 	}
 
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		iDetalleRepartoRepository.deleteById(id);
-	}
-
 
 }
