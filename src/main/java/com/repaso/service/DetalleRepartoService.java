@@ -13,37 +13,37 @@ import com.repaso.repository.IDetalleRepartoRepository;
 public class DetalleRepartoService implements IDetalleRepartoService{
 
 	@Autowired
-	private IDetalleRepartoRepository idrr;
+	private IDetalleRepartoRepository iDetalleRepartoRepository;
 	
 	@Override
 	public DetalleRepartosModel create(DetalleRepartosModel detalleReparto) {
 		// TODO Auto-generated method stub
-		return idrr.save(detalleReparto);
+		return iDetalleRepartoRepository.save(detalleReparto);
 	}
 
 	@Override
 	public DetalleRepartosModel update(DetalleRepartosModel detalleReparto) {
 		// TODO Auto-generated method stub
-		return idrr.save(detalleReparto);
+		return iDetalleRepartoRepository.save(detalleReparto);
 	}
 
 	@Override
 	public DetalleRepartosModel findById(Integer id) {
 		// TODO Auto-generated method stub
-		Optional<DetalleRepartosModel> optional = idrr.findById(id);
+		Optional<DetalleRepartosModel> optional = iDetalleRepartoRepository.findById(id);
 		return optional.orElse(null);
 	}
 
 	@Override
 	public List<DetalleRepartosModel> FindAll() {
 		// TODO Auto-generated method stub
-		return idrr.findAll();
+		return iDetalleRepartoRepository.findAll();
 	}
 
 	@Override
 	public void deleteById(Integer id) {
 		// TODO Auto-generated method stub
-		idrr.deleteById(id);
+		iDetalleRepartoRepository.deleteById(id);
 	}
 
 

@@ -24,53 +24,55 @@ import com.repaso.service.ProveedorService;
 @RequestMapping("/proveedores")
 public class ProveedorController {
 	@Autowired
-	private ProveedorService ps;
+	private ProveedorService proveedorService;
 
 	@PostMapping
-	public ResponseEntity<ProveedorModel> create(@RequestBody ProveedorDto proveedor) {
-		ProveedorModel pModel = ProveedorMapper.createModel(proveedor);
+	public ResponseEntity<Object> create(@RequestBody ProveedorDto proveedor) {
+		ProveedorModel proveedorModel = ProveedorMapper.createModel(proveedor);
+		proveedorService.create(proveedorModel);
 
-		return new ResponseEntity<ProveedorModel>(ps.create(pModel), HttpStatus.CREATED);
+		return new ResponseEntity<Object>(HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> update(@RequestParam ProveedorDto proveedor, @PathVariable(name = "id") Integer id)
 			throws Exception {
-		
-		ProveedorModel getId = ps.findByID(id);
-		
-		if (getId == null)
+
+		ProveedorModel proveedorGetId = proveedorService.findByID(id);
+
+		if (proveedorGetId == null)
 			throw new Exception("El proveedor que trata de actualizar no existe");
 
-		ProveedorModel pModel = ProveedorMapper.createModel(proveedor);
+		ProveedorModel proveedorModel = ProveedorMapper.createModel(proveedor);
 
-		pModel.setId(getId.getId());
+		proveedorModel.setId(proveedorGetId.getId());
 
-		ps.create(pModel);
+		proveedorService.create(proveedorModel);
 
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 
 	@GetMapping("/all")
 	public ResponseEntity<List<ProveedorDto>> findAll() {
-		return new ResponseEntity<List<ProveedorDto>>(ProveedorMapper.toDtoList(ps.findAll()), HttpStatus.OK);
+		return new ResponseEntity<List<ProveedorDto>>(ProveedorMapper.toDtoList(proveedorService.findAll()),
+				HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ProveedorDto> findById(@PathVariable(name = "id") Integer id) throws Exception {
-		ProveedorModel pm = ps.findByID(id);
+		ProveedorModel proveedorModel = proveedorService.findByID(id);
 
-		if (pm == null)
+		if (proveedorModel == null)
 			throw new Exception("Error: este proveedor no existe");
 
-		return new ResponseEntity<ProveedorDto>(ProveedorMapper.createDto(pm), HttpStatus.OK);
+		return new ResponseEntity<ProveedorDto>(ProveedorMapper.createDto(proveedorModel), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> delete(@PathVariable(name = "id") Integer id) throws Exception {
-		if (ps.findByID(id) == null)
+		if (proveedorService.findByID(id) == null)
 			throw new Exception("Error: este proveedor no existe");
-		ps.deleteById(id);
+		proveedorService.deleteById(id);
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 

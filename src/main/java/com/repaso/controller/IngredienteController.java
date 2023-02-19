@@ -24,39 +24,41 @@ import com.repaso.service.IngredienteService;
 public class IngredienteController {
 
 	@Autowired
-	private IngredienteService is;
+	private IngredienteService ingredienteService;
 
 	@PostMapping()
-	public ResponseEntity<IngredienteModel> create(@RequestBody IngredienteDto ingrediente) {
-		IngredienteModel im = IngredienteMapper.createIngredienteModel(ingrediente);
+	public ResponseEntity<Object> create(@RequestBody IngredienteDto ingrediente) {
+		IngredienteModel ingredienteModel = IngredienteMapper.createIngredienteModel(ingrediente);
 
-		return new ResponseEntity<IngredienteModel>(is.create(im), HttpStatus.CREATED);
+		ingredienteService.create(ingredienteModel);
+
+		return new ResponseEntity<Object>(HttpStatus.CREATED);
 	}
 
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<Object> update(@RequestBody IngredienteDto ingrediente,
-			@PathVariable(name = "id") Integer id) throws Exception {
-		IngredienteModel getId = is.findById(id);
+	public ResponseEntity<Object> update(@RequestBody IngredienteDto ingrediente, @PathVariable(name = "id") Integer id)
+			throws Exception {
+		IngredienteModel ingredienteGetId = ingredienteService.findById(id);
 
-		if (getId == null)
+		if (ingredienteGetId == null)
 			throw new Exception("El ingrediente que trata de acutalizar no existe.");
 
-		IngredienteModel im = IngredienteMapper.createIngredienteModel(ingrediente);
-		im.setId(getId.getId());
-		
-		is.update(im);
+		IngredienteModel ingredienteModel = IngredienteMapper.createIngredienteModel(ingrediente);
+		ingredienteModel.setId(ingredienteGetId.getId());
+
+		ingredienteService.update(ingredienteModel);
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 
 	@GetMapping("/all")
 	public ResponseEntity<List<IngredienteDto>> findAll() {
-		return new ResponseEntity<List<IngredienteDto>>(IngredienteMapper.createIngredienteDtoList(is.findAll()),
-				HttpStatus.OK);
+		return new ResponseEntity<List<IngredienteDto>>(
+				IngredienteMapper.createIngredienteDtoList(ingredienteService.findAll()), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<IngredienteDto> findById(@PathVariable(name = "id") Integer id) throws Exception {
-		IngredienteModel ingrediente = is.findById(id);
+		IngredienteModel ingrediente = ingredienteService.findById(id);
 
 		if (ingrediente == null)
 			throw new Exception("El ingrediente que estas tratando de encontrar no existe");
@@ -66,9 +68,9 @@ public class IngredienteController {
 
 	@DeleteMapping(path = { "/{id}" })
 	public ResponseEntity<Object> delete(@PathVariable(name = "id") Integer id) throws Exception {
-		if (is.findById(id) == null)
+		if (ingredienteService.findById(id) == null)
 			throw new Exception("Error: el ingrediente que queres eliminar no existe");
-		is.deleteById(id);
+		ingredienteService.deleteById(id);
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 

@@ -13,37 +13,32 @@ import com.repaso.repository.ISanguchesPedidoRepository;
 public class SanguchesPedidoService implements ISanguchesPedidoService{
 
 	@Autowired
-	private ISanguchesPedidoRepository spr;
+	private ISanguchesPedidoRepository sanguchesPedidoRepository;
 
 	@Override
 	public SanguchesPedidoModel create(SanguchesPedidoModel sanguchePedido) {
-		// TODO Auto-generated method stub
-		return spr.save(sanguchePedido);
+		return sanguchesPedidoRepository.save(sanguchePedido);
 	}
 
 	@Override
 	public SanguchesPedidoModel update(SanguchesPedidoModel sanguchePedido) {
-		// TODO Auto-generated method stub
-		return spr.save(sanguchePedido);
+		return sanguchesPedidoRepository.save(sanguchePedido);
 	}
 
 	@Override
 	public SanguchesPedidoModel findById(Integer id) {
-		// TODO Auto-generated method stub
-		Optional<SanguchesPedidoModel> optional = spr.findById(id);
+		Optional<SanguchesPedidoModel> optional = sanguchesPedidoRepository.findById(id);
 		return optional.orElse(null);
 	}
 
 	@Override
 	public List<SanguchesPedidoModel> FindAll() {
-		// TODO Auto-generated method stub
-		return spr.findAll();
+		return sanguchesPedidoRepository.findAll();
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		spr.deleteById(id);
+		sanguchesPedidoRepository.deleteById(id);
 	}
 	
 	

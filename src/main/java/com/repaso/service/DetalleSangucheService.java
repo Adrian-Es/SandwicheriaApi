@@ -14,39 +14,32 @@ import com.repaso.repository.IDetalleSangucheRepository;
 public class DetalleSangucheService implements IDetalleSangucheService{
 	
 	@Autowired
-	private IDetalleSangucheRepository drr;
+	private IDetalleSangucheRepository iDetalleSangucheRepository;
 
 	@Override
 	public DetalleSangucheModel create(DetalleSangucheModel detalleSanguche) {
 		// TODO Auto-generated method stub
-		return drr.save(detalleSanguche);
+		return iDetalleSangucheRepository.save(detalleSanguche);
 	}
 
 	@Override
 	public DetalleSangucheModel update(DetalleSangucheModel detalleSanguche) {
 		// TODO Auto-generated method stub
-		return drr.save(detalleSanguche);
+		return iDetalleSangucheRepository.save(detalleSanguche);
 	}
 
 	@Override
 	public DetalleSangucheModel findById(DetalleSangucheKey id) {
 		// TODO Auto-generated method stub
-		Optional<DetalleSangucheModel> optional = drr.findById(id);
+		Optional<DetalleSangucheModel> optional = iDetalleSangucheRepository.findById(id);
 		return optional.orElse(null);
 	}
 
 	@Override
 	public List<DetalleSangucheModel> FindAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return iDetalleSangucheRepository.findAll();
 	}
 
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 	
 }

@@ -13,32 +13,32 @@ import com.repaso.repository.IRepartoRepository;
 public class RepartoService implements IRepartoService{
 	
 	@Autowired
-	private IRepartoRepository irr;
+	private IRepartoRepository iRepartoRepository;
 
 	@Override
 	public RepartosModel create(RepartosModel reparto) {
-		return irr.save(reparto);
+		return iRepartoRepository.save(reparto);
 	}
 	@Override
 	public RepartosModel findById(Integer id) {
-		Optional<RepartosModel> op = irr.findById(id);
+		Optional<RepartosModel> op = iRepartoRepository.findById(id);
 		
 		return op.orElse(null);
 	}
 
 	@Override
 	public List<RepartosModel> FindAll() {
-		return irr.findAll();
+		return iRepartoRepository.findAll();
 	}
 
 	@Override
 	public List<RepartosModel> repartosPorProveedor(Integer proveedor_id) {
-		return irr.repartosPorProveedor(proveedor_id);
+		return iRepartoRepository.repartosPorProveedor(proveedor_id);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		irr.deleteById(id);
+		iRepartoRepository.deleteById(id);
 	}
 	
 }

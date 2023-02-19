@@ -23,22 +23,24 @@ public class RepartosMapperFunc {
 	}
 
 	// se agrega en la bd la cantidad de ingredientes recibidos
-	public static void updateCantidadTotalIngrediente(IngredienteService is, IngredienteModel im,
-			Integer cantidadAdicional) {
-		im.setCantitadTotal(im.getCantidadTotal() + cantidadAdicional);
-		is.update(im);
+	public static void updateCantidadTotalIngrediente(IngredienteService ingredienteService,
+			IngredienteModel ingredienteModel, Integer cantidadAdicional) {
+		ingredienteModel.setCantitadTotal(ingredienteModel.getCantidadTotal() + cantidadAdicional);
+		ingredienteService.update(ingredienteModel);
 	}
 
 	// crea los registros de la tabla detalle_reparto
-	public static void createDetallesReparto(DetalleRepartoService drs, Set<DetalleRepartosBasicoDto> detalles,
-			RepartosModel rm, IngredienteService is) {
+	public static void createDetallesReparto(DetalleRepartoService detalleRepartoService,
+			Set<DetalleRepartosBasicoDto> detalles, RepartosModel repartosModel,
+			IngredienteService ingredienteService) {
 
 		for (DetalleRepartosBasicoDto d : detalles) {
 
 			try {
-				IngredienteModel iModel = is.findById(d.getId_ingrediente());
-				updateCantidadTotalIngrediente(is, iModel, d.getCantidad());
-				drs.create(RepartosMappers.createDetalleRepartosModel(d, rm,iModel));
+				IngredienteModel ingredienteModel = ingredienteService.findById(d.getId_ingrediente());
+				updateCantidadTotalIngrediente(ingredienteService, ingredienteModel, d.getCantidad());
+				detalleRepartoService
+						.create(RepartosMappers.createDetalleRepartosModel(d, repartosModel, ingredienteModel));
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}

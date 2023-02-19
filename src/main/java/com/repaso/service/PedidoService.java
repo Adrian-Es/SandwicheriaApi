@@ -13,33 +13,33 @@ import com.repaso.repository.IPedidoRepository;
 public class PedidoService implements IPedidoService{
 
 	@Autowired
-	private IPedidoRepository ipr;
+	private IPedidoRepository iPedidoRepository;
 
 	@Override
 	public PedidoModel create(PedidoModel pedido) {
-		return ipr.save(pedido);
+		return iPedidoRepository.save(pedido);
 	}
 
 	@Override
 	public PedidoModel update(PedidoModel pedido) {
-		return ipr.save(pedido);
+		return iPedidoRepository.save(pedido);
 	}
 
 	@Override
 	public PedidoModel findById(Integer id) {
-		Optional<PedidoModel> op = ipr.findById(id);
+		Optional<PedidoModel> op = iPedidoRepository.findById(id);
 		
 		return op.orElse(null);
 	}
 
 	@Override
 	public List<PedidoModel> findAll() {
-		return ipr.findAll();
+		return iPedidoRepository.findAll();
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		ipr.deleteById(id);
+		iPedidoRepository.deleteById(id);
 	}
 	
 }

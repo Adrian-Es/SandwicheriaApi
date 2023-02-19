@@ -7,25 +7,25 @@ import com.repaso.dto.IngredienteDto;
 import com.repaso.model.IngredienteModel;
 
 public class IngredienteMapper {
-	
+
 	// dto -----> object
-	public static IngredienteModel createIngredienteModel(IngredienteDto id) {
-		return new IngredienteModel(id.getNombre());
+	public static IngredienteModel createIngredienteModel(IngredienteDto ingredienteDto) {
+		return new IngredienteModel(ingredienteDto.getNombre());
 	}
-	
+
 	// object ------------>dto
-	public static IngredienteDto createIngredienteDto(IngredienteModel im) {
-		return new IngredienteDto(im.getNombre(), im.getCantidadTotal());
+	public static IngredienteDto createIngredienteDto(IngredienteModel ingredienteModel) {
+		return new IngredienteDto(ingredienteModel.getNombre(), ingredienteModel.getCantidadTotal());
 	}
-	
-	//object list --------> dto list
-	public static List<IngredienteDto> createIngredienteDtoList(List<IngredienteModel> lim){
-		List<IngredienteDto> lid = new ArrayList<IngredienteDto>();
-		
-		for(IngredienteModel im : lim) {
-			lid.add(createIngredienteDto(im));
+
+	// object list --------> dto list
+	public static List<IngredienteDto> createIngredienteDtoList(List<IngredienteModel> listIngredienteModel) {
+		List<IngredienteDto> listIngredienteDto = new ArrayList<IngredienteDto>();
+
+		for (IngredienteModel ingredienteModel : listIngredienteModel) {
+			listIngredienteDto.add(createIngredienteDto(ingredienteModel));
 		}
-		
-		return lid;
+
+		return listIngredienteDto;
 	}
 }

@@ -17,68 +17,71 @@ import com.repaso.model.SanguchesPedidoModel;
 public class PedidosMappers {
 	// dto ----> model
 
-	public static DetalleSangucheModel createDetalleSangucheModel(Integer cantidad , SanguchesPedidoModel spm, IngredienteModel im)
-			throws Exception {
-		return new DetalleSangucheModel(spm, im,cantidad);
+	public static DetalleSangucheModel createDetalleSangucheModel(Integer cantidad,
+			SanguchesPedidoModel sanguchesPedidoModel, IngredienteModel ingredienteModel) throws Exception {
+		return new DetalleSangucheModel(sanguchesPedidoModel, ingredienteModel, cantidad);
 	}
 
-	public static SanguchesPedidoModel createSanguchesPedidoModel(PedidoModel pModel) {
-		return new SanguchesPedidoModel(pModel);
+	public static SanguchesPedidoModel createSanguchesPedidoModel(PedidoModel pedidoModel) {
+		return new SanguchesPedidoModel(pedidoModel);
 	}
 
-	public static PedidoModel createPedidoModel(PedidosCompletosDto pcd) {
-		PedidoModel pModel = new PedidoModel(pcd.getDireccionEntrega(), RepartosMapperFunc.convertStringToLocalDate(pcd.getFecha()));
+	public static PedidoModel createPedidoModel(PedidosCompletosDto pedidosCompletosDto) {
+		PedidoModel pModel = new PedidoModel(pedidosCompletosDto.getDireccionEntrega(),
+				RepartosMapperFunc.convertStringToLocalDate(pedidosCompletosDto.getFecha()));
 
 		return pModel;
 	}
 
 	// model ----> dto
 
-	public static DetalleSangucheDto createDetalleSangucheDto(DetalleSangucheModel dsm) {
-		return new DetalleSangucheDto(dsm.getIngrediente().getId(), dsm.getCantidad());
+	public static DetalleSangucheDto createDetalleSangucheDto(DetalleSangucheModel detalleSangucheModel) {
+		return new DetalleSangucheDto(detalleSangucheModel.getIngrediente().getId(),
+				detalleSangucheModel.getCantidad());
 	}
 
-	public static SanguchesPedidoDto createSanguchesPedidoDto(SanguchesPedidoModel spm) {
-		return new SanguchesPedidoDto(createSetDetalleSangucheDto(spm.getDetallesSanguche()));
+	public static SanguchesPedidoDto createSanguchesPedidoDto(SanguchesPedidoModel sanguchesPedidoModel) {
+		return new SanguchesPedidoDto(createSetDetalleSangucheDto(sanguchesPedidoModel.getDetallesSanguche()));
 	}
 
-	public static PedidosCompletosDto createPedidosCompletosDto(PedidoModel pModel) {
-		return new PedidosCompletosDto(pModel.getDireccionEntrega(), pModel.getFecha().toString(),
-				createSetSanguchesPedidoDtos(pModel.getSanguches()));
+	public static PedidosCompletosDto createPedidosCompletosDto(PedidoModel pedidoModel) {
+		return new PedidosCompletosDto(pedidoModel.getDireccionEntrega(), pedidoModel.getFecha().toString(),
+				createSetSanguchesPedidoDtos(pedidoModel.getSanguches()));
 	}
 
 	// model set --------> dto set
 
-	public static Set<DetalleSangucheDto> createSetDetalleSangucheDto(Set<DetalleSangucheModel> set) {
-		Set<DetalleSangucheDto> hdsd = new HashSet<DetalleSangucheDto>();
+	public static Set<DetalleSangucheDto> createSetDetalleSangucheDto(
+			Set<DetalleSangucheModel> setDetalleSangucheModel) {
+		Set<DetalleSangucheDto> setDetalleSangucheDtos = new HashSet<DetalleSangucheDto>();
 
-		for (DetalleSangucheModel d : set) {
-			hdsd.add(createDetalleSangucheDto(d));
+		for (DetalleSangucheModel detalleSangucheModel : setDetalleSangucheModel) {
+			setDetalleSangucheDtos.add(createDetalleSangucheDto(detalleSangucheModel));
 		}
 
-		return hdsd;
+		return setDetalleSangucheDtos;
 	}
 
-	
-	//dto set------------> model set
-	public static Set<SanguchesPedidoDto> createSetSanguchesPedidoDtos(Set<SanguchesPedidoModel> set) {
-		Set<SanguchesPedidoDto> hspd = new HashSet<SanguchesPedidoDto>();
+	// dto set------------> model set
+	public static Set<SanguchesPedidoDto> createSetSanguchesPedidoDtos(
+			Set<SanguchesPedidoModel> setSanguchesPedidoModel) {
+		Set<SanguchesPedidoDto> setSanguchesPedidoDto = new HashSet<SanguchesPedidoDto>();
 
-		for (SanguchesPedidoModel s : set) {
-			hspd.add(createSanguchesPedidoDto(s));
+		for (SanguchesPedidoModel sanguchesPedidoModel : setSanguchesPedidoModel) {
+			setSanguchesPedidoDto.add(createSanguchesPedidoDto(sanguchesPedidoModel));
 		}
 
-		return hspd;
+		return setSanguchesPedidoDto;
 	}
-	
-	//model list -------> dto list
-	public static List<PedidosCompletosDto> createListPedidosCompletosDtos(List<PedidoModel> lpm){
-		List<PedidosCompletosDto> lpcd = new ArrayList<PedidosCompletosDto>();
-		
-		for(PedidoModel pModel : lpm) {
-			lpcd.add(createPedidosCompletosDto(pModel));
+
+	// model list -------> dto list
+	public static List<PedidosCompletosDto> createListPedidosCompletosDtos(List<PedidoModel> listPedidoModel) {
+		List<PedidosCompletosDto> listPedidosCompletosDto = new ArrayList<PedidosCompletosDto>();
+
+		for (PedidoModel pedidoModel : listPedidoModel) {
+			listPedidosCompletosDto.add(createPedidosCompletosDto(pedidoModel));
 		}
-		
-		return lpcd;
+
+		return listPedidosCompletosDto;
 	}
 }

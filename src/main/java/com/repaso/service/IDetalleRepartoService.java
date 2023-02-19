@@ -12,6 +12,4 @@ public interface IDetalleRepartoService {
 	DetalleRepartosModel findById(Integer id);
 	
 	List<DetalleRepartosModel> FindAll();
-	
-	void deleteById(Integer id);
 }

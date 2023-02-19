@@ -27,24 +27,26 @@ import com.repaso.service.RepartoService;
 public class RepartosCompletosController {
 
 	@Autowired
-	private RepartoService rs;
+	private RepartoService repartoService;
 	@Autowired
-	private DetalleRepartoService drs;
-	
+	private DetalleRepartoService detalleRepartoService;
+
 	@Autowired
-	private IngredienteService is;
+	private IngredienteService ingredienteService;
 	@Autowired
-	private ProveedorService ps;
+	private ProveedorService proveedorService;
 
 	@PostMapping
-	public ResponseEntity<Object> create(@RequestBody RepartosCompletosDto rcd) throws Exception {
-		if (rcd.getDetalles() == null || rcd.getDetalles().isEmpty())
+	public ResponseEntity<Object> create(@RequestBody RepartosCompletosDto repartosCompletosDto) throws Exception {
+		if (repartosCompletosDto.getDetalles() == null || repartosCompletosDto.getDetalles().isEmpty())
 			throw new Exception("Error: El reparto esta vacio");
 
 		try {
-			RepartosModel rm = rs.create(RepartosMappers.createRepartosModel(rcd,ps));
+			RepartosModel repartosModel = repartoService.create(RepartosMappers.createRepartosModel(
+					repartosCompletosDto, proveedorService.findByID(repartosCompletosDto.getId_proveedor())));
 
-			RepartosMapperFunc.createDetallesReparto(drs, rcd.getDetalles(), rm,is);
+			RepartosMapperFunc.createDetallesReparto(detalleRepartoService, repartosCompletosDto.getDetalles(),
+					repartosModel, ingredienteService);
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -57,35 +59,38 @@ public class RepartosCompletosController {
 
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<RepartosCompletosDto> findById(@PathVariable(name = "id") Integer id) throws Exception {
-		RepartosModel rModel = rs.findById(id);
-		
-		if(rModel==null)throw new Exception("Error: El reparto no existe");
-		
-		RepartosCompletosDto rcd = RepartosMappers.createRepartosDto(rModel);
-		
-		return new ResponseEntity<RepartosCompletosDto>(rcd,HttpStatus.OK);
+		RepartosModel repartosModel = repartoService.findById(id);
+
+		if (repartosModel == null)
+			throw new Exception("Error: El reparto no existe");
+
+		RepartosCompletosDto repartosCompletosDto = RepartosMappers.createRepartosDto(repartosModel);
+
+		return new ResponseEntity<RepartosCompletosDto>(repartosCompletosDto, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(path = "/proveedor/{id}")
-	public ResponseEntity<List<RepartosCompletosDto>> findByProveedor(@PathVariable(name ="id") Integer id){
-		List<RepartosCompletosDto> lrcd = RepartosMappers.toDtoList(rs.repartosPorProveedor(id));
-		
-		return new ResponseEntity<List<RepartosCompletosDto>>(lrcd,HttpStatus.OK);
+	public ResponseEntity<List<RepartosCompletosDto>> findByProveedor(@PathVariable(name = "id") Integer id) {
+		List<RepartosCompletosDto> listRepartosCompletosDtos = RepartosMappers
+				.toDtoList(repartoService.repartosPorProveedor(id));
+
+		return new ResponseEntity<List<RepartosCompletosDto>>(listRepartosCompletosDtos, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<List<RepartosCompletosDto>> findAll(){
-		List<RepartosCompletosDto> lrcd = RepartosMappers.toDtoList(rs.FindAll());
-		
-		return new ResponseEntity<List<RepartosCompletosDto>>(lrcd,HttpStatus.OK);
+	public ResponseEntity<List<RepartosCompletosDto>> findAll() {
+		List<RepartosCompletosDto> listRepartosCompletosDtos = RepartosMappers.toDtoList(repartoService.FindAll());
+
+		return new ResponseEntity<List<RepartosCompletosDto>>(listRepartosCompletosDtos, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> delete(@PathVariable(name = "id") Integer id) throws Exception{
-		if(rs.findById(id)==null) throw new Exception("Error: el reparto no existe");
-		rs.deleteById(id);
-		
+	public ResponseEntity<Object> delete(@PathVariable(name = "id") Integer id) throws Exception {
+		if (repartoService.findById(id) == null)
+			throw new Exception("Error: el reparto no existe");
+		repartoService.deleteById(id);
+
 		return new ResponseEntity<Object>(HttpStatus.OK);
-		
+
 	}
 }

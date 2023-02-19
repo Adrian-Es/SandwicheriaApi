@@ -13,33 +13,33 @@ import com.repaso.repository.IIngredienteRepository;
 public class IngredienteService implements IIngredienteService{
 	
 	@Autowired
-	private IIngredienteRepository iir;
+	private IIngredienteRepository ingredienteRepository;
 	
 	@Override
 	public IngredienteModel create(IngredienteModel ingrediente) {
-		return iir.save(ingrediente);
+		return ingredienteRepository.save(ingrediente);
 	}
 
 	@Override
 	public IngredienteModel update(IngredienteModel ingrediente) {
-		return iir.save(ingrediente);
+		return ingredienteRepository.save(ingrediente);
 	}
 
 	@Override
 	public IngredienteModel findById(Integer id) {
-		Optional<IngredienteModel> optional =iir.findById(id);
+		Optional<IngredienteModel> optional =ingredienteRepository.findById(id);
 		
 		return optional.orElse(null);
 	}
 
 	@Override
 	public List<IngredienteModel> findAll() {
-		return iir.findAll();
+		return ingredienteRepository.findAll();
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		iir.deleteById(id);
+		ingredienteRepository.deleteById(id);
 	}
 
 }

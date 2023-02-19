@@ -8,25 +8,26 @@ import com.repaso.model.ProveedorModel;
 
 public class ProveedorMapper {
 
-	//dto ---------> model
-	public static ProveedorModel createModel(ProveedorDto pd) {
-		return new ProveedorModel(pd.getNombre(), pd.getDireccion(), pd.getTelefono());
+	// dto ---------> model
+	public static ProveedorModel createModel(ProveedorDto proveedorDto) {
+		return new ProveedorModel(proveedorDto.getNombre(), proveedorDto.getDireccion(), proveedorDto.getTelefono());
 	}
-	
-	//model------------> dto
-	public static ProveedorDto createDto(ProveedorModel pm) {
-		return new ProveedorDto(pm.getNombre(), pm.getDireccion(), pm.getTelefono());
+
+	// model------------> dto
+	public static ProveedorDto createDto(ProveedorModel proveedorModel) {
+		return new ProveedorDto(proveedorModel.getNombre(), proveedorModel.getDireccion(),
+				proveedorModel.getTelefono());
 	}
-	
-	//model list ----------> dto list
-	public static List<ProveedorDto> toDtoList(List<ProveedorModel> lpm){
-		List<ProveedorDto> lpd = new ArrayList<ProveedorDto>();
-		
-		for(ProveedorModel pm : lpm) {
-			lpd.add(createDto(pm));
+
+	// model list ----------> dto list
+	public static List<ProveedorDto> toDtoList(List<ProveedorModel> listProveedorModel) {
+		List<ProveedorDto> listProveedorDto = new ArrayList<ProveedorDto>();
+
+		for (ProveedorModel proveedorModel : listProveedorModel) {
+			listProveedorDto.add(createDto(proveedorModel));
 		}
-		
-		return lpd;
+
+		return listProveedorDto;
 	}
-	
+
 }

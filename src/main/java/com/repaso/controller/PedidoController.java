@@ -25,57 +25,62 @@ import com.repaso.service.SanguchesPedidoService;
 @Controller
 @RequestMapping("/pedidos")
 public class PedidoController {
-	
+
 	@Autowired
-	private PedidoService pService;
+	private PedidoService pedidoService;
 	@Autowired
-	private SanguchesPedidoService sPedidoService;
+	private SanguchesPedidoService sanguchesPedidoService;
 	@Autowired
-	private DetalleSangucheService dsService;
-	
+	private DetalleSangucheService detalleSangucheService;
+
 	@Autowired
-	private IngredienteService iService;
-	
+	private IngredienteService ingredienteService;
+
 	@PostMapping
-	public ResponseEntity<Object> create(@RequestBody PedidosCompletosDto pcd) throws Exception{
-		if(pcd.getSanguches()==null || pcd.getSanguches().isEmpty()) throw new Exception("Error: el pedido esta vacio");
-		
+	public ResponseEntity<Object> create(@RequestBody PedidosCompletosDto pedidosCompletosDto) throws Exception {
+		if (pedidosCompletosDto.getSanguches() == null || pedidosCompletosDto.getSanguches().isEmpty())
+			throw new Exception("Error: el pedido esta vacio");
+
 		try {
-			PedidoModel pModel = PedidosMappers.createPedidoModel(pcd); 
-			pService.create(pModel);
-			
-			PedidosMapperFunc.createRegisterSanguchesPedidos(pcd.getSanguches(), sPedidoService, pModel, dsService, iService);
-			
+			PedidoModel pedidoModel = PedidosMappers.createPedidoModel(pedidosCompletosDto);
+			pedidoService.create(pedidoModel);
+
+			PedidosMapperFunc.createRegisterSanguchesPedidos(pedidosCompletosDto.getSanguches(), sanguchesPedidoService,
+					pedidoModel, detalleSangucheService, ingredienteService);
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
-		
+
 		return new ResponseEntity<Object>(HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<PedidosCompletosDto> findById(@PathVariable(name = "id") Integer id) throws Exception{
-		PedidoModel pModel = pService.findById(id);
-		
-		if(pModel==null) throw new Exception("Error: el pedido que busca no existe");
-		
-		PedidosCompletosDto pcd = PedidosMappers.createPedidosCompletosDto(pModel);
-		
-		return new ResponseEntity<PedidosCompletosDto>(pcd,HttpStatus.OK);
+	public ResponseEntity<PedidosCompletosDto> findById(@PathVariable(name = "id") Integer id) throws Exception {
+		PedidoModel pedidoModel = pedidoService.findById(id);
+
+		if (pedidoModel == null)
+			throw new Exception("Error: el pedido que busca no existe");
+
+		PedidosCompletosDto pcd = PedidosMappers.createPedidosCompletosDto(pedidoModel);
+
+		return new ResponseEntity<PedidosCompletosDto>(pcd, HttpStatus.OK);
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<PedidosCompletosDto>> findAll(){
-		List<PedidosCompletosDto> lpcd = PedidosMappers.createListPedidosCompletosDtos(pService.findAll());
-		
-		return new ResponseEntity<List<PedidosCompletosDto>>(lpcd, HttpStatus.OK);
+	public ResponseEntity<List<PedidosCompletosDto>> findAll() {
+		List<PedidosCompletosDto> pedidosCompletosDtoList = PedidosMappers
+				.createListPedidosCompletosDtos(pedidoService.findAll());
+
+		return new ResponseEntity<List<PedidosCompletosDto>>(pedidosCompletosDtoList, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteById(@PathVariable(name = "id") Integer id) throws Exception{
-		if(pService.findById(id)==null) throw new Exception("Error: el pedido que quiere eliminar no existe");
-		pService.deleteById(id);
-		
+	public ResponseEntity<Object> deleteById(@PathVariable(name = "id") Integer id) throws Exception {
+		if (pedidoService.findById(id) == null)
+			throw new Exception("Error: el pedido que quiere eliminar no existe");
+		pedidoService.deleteById(id);
+
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 }

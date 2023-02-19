@@ -13,32 +13,32 @@ import com.repaso.repository.IProveedorRepository;
 public class ProveedorService implements IProveedorService{
 	
 	@Autowired
-	private IProveedorRepository ipr;
+	private IProveedorRepository iProveedorRepository;
 	
 	@Override
 	public ProveedorModel create(ProveedorModel proveedor) {
-		return ipr.save(proveedor);
+		return iProveedorRepository.save(proveedor);
 	}
 
 	@Override
 	public ProveedorModel update(ProveedorModel proveedor) {
-		return ipr.save(proveedor);
+		return iProveedorRepository.save(proveedor);
 	}
 
 	@Override
 	public ProveedorModel findByID(Integer id) {
-		Optional<ProveedorModel> op = ipr.findById(id);
+		Optional<ProveedorModel> op = iProveedorRepository.findById(id);
 		return op.orElse(null);
 	}
 
 	@Override
 	public List<ProveedorModel> findAll() {
-		return ipr.findAll();
+		return iProveedorRepository.findAll();
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		ipr.deleteById(id);
+		iProveedorRepository.deleteById(id);
 	}
 
 }
