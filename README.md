@@ -1,10 +1,10 @@
 # Índice
-* [Info](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#info)
-* [Application.properties](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#applicationproperties)
-* [DTO´s](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#dtos)
-* [Controllers](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#controllers)
-* [Correcciones y agregados a implementar]()
-* [Versiones]()
+* [Info](#info)
+* [Application.properties](#applicationproperties)
+* [DTO´s](#dtos)
+* [Controllers](#controllers)
+* [Correcciones y agregados a implementar](#correcciones-y-agregados-a-implementar)
+* [Versiones](#versiones)
 
 # Info
 API REST simple que atiende las necesidades de un local de sanguches.
@@ -28,13 +28,13 @@ Las configuraciones básicas que aplico para el archivo application.properties s
 La API implementa distintos tipos de dto en base al fácil ingreso de datos a la bd. A continuación dejo la lista de estos dto's y las propiedades que contienen cada uno
 
 #### Índice Dto:
-* [IngredienteDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#ingredientedto)
-* [ProveedorDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#proveedordto)
-* [RepartosCompletosDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#repartoscompletosdto)
-* [DetalleRepartosBasicoDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#detallerepartosbasicodto)
-* [PedidosCompletosDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#pedidoscompletosdto)
-* [SanguchesPedidoDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#sanguchespedidodto)
-* [DetalleSangucheDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#detallesanguchedto)
+* [IngredienteDto](#ingredientedto)
+* [ProveedorDto](#proveedordto)
+* [RepartosCompletosDto](#repartoscompletosdto)
+* [DetalleRepartosBasicoDto](#detallerepartosbasicodto)
+* [PedidosCompletosDto](#pedidoscompletosdto)
+* [SanguchesPedidoDto](#sanguchespedidodto)
+* [DetalleSangucheDto](#detallesanguchedto)
 
 ## IngredienteDto
 * String nombre: Nombre del ingrediente
@@ -71,10 +71,10 @@ La API implementa distintos tipos de dto en base al fácil ingreso de datos a la
 Por último, en cuanto a documentación para el uso de esta API, voy a dejar una lista de los controllers que se aplican, las funciones y retornos que hace cada uno cuando cumplen exitosamente con su función:
 
 #### Índice Controllers
-* [IngredienteController](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#ingredientecontroller)
-* [ProveedorController](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#proveedorcontroller)
-* [RepartosCompletosController](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#repartoscompletoscontroller)
-* [PedidoController](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#pedidocontroller)
+* [IngredienteController](#ingredientecontroller)
+* [ProveedorController](#proveedorcontroller)
+* [RepartosCompletosController](#repartoscompletoscontroller)
+* [PedidoController](#pedidocontroller)
     
 ## IngredienteController
 @RequestMapping: "/ingredientes"
