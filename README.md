@@ -3,11 +3,15 @@
 * [Application.properties](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#applicationproperties)
 * [DTO´s](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#dtos)
 * [Controllers](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#controllers)
+* [Correcciones y agregados a implementar]()
+* [Versiones]()
 
 # Info
 API REST simple que atiende las necesidades de un local de sanguches.
 
 Brinda la capacidad de guardar en una base de datos: Los ingredientes disponibles, los proveedores contratados, los repartos que se hicieron (qué proveedor, cuándo y los ingreidientes comprados) y los pedidos que se realizaron al local, dando estos la fecha y direccion de entrega; además de los detalles de cada sanguche solicitado.
+
+Las tecnologías usadas en este proyecto son: Java 17, Spring Boot 3.0, MySQL y Hibernate.
 
 # Application.Properties
 Las configuraciones básicas que aplico para el archivo application.properties son:
@@ -44,7 +48,7 @@ La API implementa distintos tipos de dto en base al fácil ingreso de datos a la
 ## RepartosCompletosDto
 * Integer id_proveedor: Es quien realiza la entrega de ingredientes
 * String fecha: La fecha debe tener formato: año/mes/día
-* Set<DetalleRepartosBasicoDto> detalles: Es la lista de ingredientes recibidos
+* Set < DetalleRepartosBasicoDto > detalles: Es la lista de ingredientes recibidos
 
 ## DetalleRepartosBasicoDto
 * Integer id_ingrediente: Ingrediente recibido
@@ -54,10 +58,10 @@ La API implementa distintos tipos de dto en base al fácil ingreso de datos a la
 ## PedidosCompletosDto
 * String direccionEntrega: Dirección donde se hace la entrega
 * String fecha: Se respeta el formato antes mencionado
-* Set<SanguchesPedidoDto> sanguches: Lista de todos los sanguches a entregar
+* Set < SanguchesPedidoDto > sanguches: Lista de todos los sanguches a entregar
 
 ## SanguchesPedidoDto
-* Set<DetalleSangucheDto> detalles: Lista de los ingredientes de cada sanguche 
+* Set < DetalleSangucheDto > detalles: Lista de los ingredientes de cada sanguche 
 
 ## DetalleSangucheDto
 * Integer idIngrediente: Ingrediente utilizado
@@ -187,3 +191,13 @@ Funciones:
      * @DeleteMapping = "/{id}"
      * Return: ResponseEntity<Object>(HttpStatus.OK)
      * Descripcion: Busca el pedido solicitado en la base de datos y si existe lo elimina de la bd.
+
+# Correcciones y agregados a implementar
+* Introducir DTO's de salida: los dto actualmente sirven perfectamente para ingresar datos, pero son poco practicos para leerlos en la salida (casos como la lista de ingredientes o proveedores, que no indican la id de cada registro; y otros como DetalleSanguche o RepartosCompletos, que indican id´s pero sin saber más informacion al respecto).
+* Añadir la variable "costeUnitario" a ingredientes, para indicar el coste de venta. A su vez, esto da pie a la implementacion de "precio" en SanguchePedido (ya que se podría calcular bien el precio de cada sanguche) y la correcta utilización de la variable "total" en Pedidos.
+* Perfeccionar los controladores (evitar, en las clases compuestas, que se generen registros de una tabla pero no en otra debido a errores).
+* Manejar mejor los errores devueltos, retornar quizás más ResponseEntity's que excepciones
+
+# Versiones
+* 1.0: primer versión subida, se verificó previamente que todos los controladores (si se ingresaban los objetos con valores válidos para el sistema) funcionaban perfectamente
+* 1.1: correción de variables, se implementó en todo el código el uso de variables más descriptivas, dejando de lado el uso inicial de siglas en pos de un entendimiento más fácil del código.
