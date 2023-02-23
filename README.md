@@ -23,6 +23,15 @@ Las configuraciones básicas que aplico para el archivo application.properties s
 # DTO's
 La API implementa distintos tipos de dto en base al fácil ingreso de datos a la bd. A continuación dejo la lista de estos dto's y las propiedades que contienen cada uno
 
+#### Índice Dto:
+* [IngredienteDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#ingredientedto)
+* [ProveedorDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#proveedordto)
+* [RepartosCompletosDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#repartoscompletosdto)
+* [DetalleRepartosBasicoDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#detallerepartosbasicodto)
+* [PedidosCompletosDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#pedidoscompletosdto)
+* [SanguchesPedidoDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#sanguchespedidodto)
+* [DetalleSangucheDto](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#detallesanguchedto)
+
 ## IngredienteDto
 * String nombre: Nombre del ingrediente
 * Integer cantidadTotal: Este valor indica la cantidad total disponible del ingrediente, se suman en cada reparto y se restan en cada pedido
@@ -57,6 +66,12 @@ La API implementa distintos tipos de dto en base al fácil ingreso de datos a la
 # Controllers
 Por último, en cuanto a documentación para el uso de esta API, voy a dejar una lista de los controllers que se aplican, las funciones y retornos que hace cada uno cuando cumplen exitosamente con su función:
 
+#### Índice Controllers
+* [IngredienteController](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#ingredientecontroller)
+* [ProveedorController](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#proveedorcontroller)
+* [RepartosCompletosController](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#repartoscompletoscontroller)
+* [PedidoController](https://github.com/Adrian-Es/SangucheriaApi/blob/master/README.md#pedidocontroller)
+    
 ## IngredienteController
 @RequestMapping: "/ingredientes"
 
